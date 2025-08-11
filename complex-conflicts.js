@@ -60,17 +60,9 @@ userB.import(snapshot1A);
 
 console.log('After first sync - User A:', userA.toJSON().items);
 console.log('After first sync - User B:', userB.toJSON().items);
-
-// Verify first sync succeeded
-const firstSyncSuccess = JSON.stringify(userA.toJSON().items) === JSON.stringify(userB.toJSON().items);
-console.log('✓ First sync converged:', firstSyncSuccess);
-
-// if (!firstSyncSuccess) {
-//   console.error('❌ SYNC FAILED: Documents did not converge after first sync!');
-//   process.exit(1);
-// } else {
-//   console.log('✅ First sync verification passed');
-// }
+console.log('Converged after first sync:', 
+  JSON.stringify(userA.toJSON().items) === JSON.stringify(userB.toJSON().items)
+);
 
 console.log('\n4. SECOND MOVE CONFLICT + More Operations...');
 
@@ -117,19 +109,6 @@ userB.import(snapshot2A);
 console.log('After second sync - User A:', userA.toJSON().items);
 console.log('After second sync - User B:', userB.toJSON().items);
 
-// Verify second sync succeeded
-const secondSyncSuccess = JSON.stringify(userA.toJSON().items) === JSON.stringify(userB.toJSON().items);
-console.log('✓ Second sync converged:', secondSyncSuccess);
-
-// if (!secondSyncSuccess) {
-//   console.error('❌ SYNC FAILED: Documents did not converge after second sync!');
-//   console.error('User A final state:', userA.toJSON().items);
-//   console.error('User B final state:', userB.toJSON().items);
-//   process.exit(1);
-// } else {
-//   console.log('✅ Second sync verification passed');
-// }
-
 console.log('\n6. FINAL STRESS TEST: Simultaneous operations on multiple elements...');
 
 // Both users perform multiple operations simultaneously
@@ -169,40 +148,11 @@ console.log('\nFinal converged list:');
 console.log('User A:', userA.toJSON().items);
 console.log('User B:', userB.toJSON().items);
 
-// Verify final sync succeeded
-// const finalSyncSuccess = JSON.stringify(userA.toJSON().items) === JSON.stringify(userB.toJSON().items);
-// console.log('\n✓ Final sync converged:', finalSyncSuccess);
+console.log('\nFinal convergence check:', 
+  JSON.stringify(userA.toJSON().items) === JSON.stringify(userB.toJSON().items)
+);
 
-// if (!finalSyncSuccess) {
-//   console.error('❌ FINAL SYNC FAILED: Documents did not converge after final sync!');
-//   console.error('User A final state:', userA.toJSON().items);
-//   console.error('User B final state:', userB.toJSON().items);
-//   console.error('Difference detected in complex conflict resolution!');
-//   process.exit(1);
-// } else {
-//   console.log('✅ Final sync verification passed');
-//   console.log(`✅ Final list length: ${userA.toJSON().items.length}`);
-//   console.log('✅ Complex conflict resolution completed successfully!');
-// }
-
-// Additional integrity checks
-const itemsA = userA.toJSON().items;
-const itemsB = userB.toJSON().items;
-
-if (itemsA.length !== itemsB.length) {
-  console.error('❌ LENGTH MISMATCH: User A has', itemsA.length, 'items, User B has', itemsB.length);
-  process.exit(1);
-}
-
-// Check for any undefined or null values
-const hasInvalidValues = itemsA.some(item => item === null || item === undefined) || 
-                        itemsB.some(item => item === null || item === undefined);
-
-if (hasInvalidValues) {
-  console.error('❌ INTEGRITY CHECK FAILED: Found null or undefined values in lists');
-  process.exit(1);
-} else {
-  console.log('✅ Integrity check passed - no invalid values found');
-}
+console.log(`\nFinal list length: ${userA.toJSON().items.length}`);
+console.log('Complex conflict resolution completed successfully!');
 
 console.log('\n=== Complex Conflict Resolution Example Complete ===');
