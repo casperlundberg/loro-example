@@ -15,8 +15,8 @@
     "url": "https://github.com/casperlundberg/loro-example/issues"
   },
   "homepage": "https://github.com/casperlundberg/loro-example#readme",
-  "description": "",
   "dependencies": {
     "loro-crdt": "^1.5.10"
-  }
+  },
+  "description": ""
 }
